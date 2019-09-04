@@ -1,0 +1,43 @@
+---
+title: "September 30, 2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(stringr)
+
+talks <- read.csv("afs_talks.csv")
+talks <- talks %>%
+  mutate(date = ymd(date),
+         datetime = ymd_hms(datetime))
+
+tryme_talks <- talks %>%
+  mutate(use = paste0("[", title, "](", link, ")"))
+
+tryme_table <- tryme_talks %>%
+  filter(date == ymd("2019-09-30")) %>%
+  filter(!link == "") %>%
+  mutate(loc = paste(location, room, sep = ", ")) %>%
+  select(Time = datetime, use, loc) %>%
+  tidyr::spread(key = "loc", value = "use", fill = "-") %>%
+  mutate(Time = str_sub(Time, str_length(Time) - 7, str_length(Time) - 3))
+
+order_rooms <- data.frame(names = names(tryme_table)[2:ncol(tryme_table)]) %>%
+  separate(names, into = c("location", "room"), sep = ",", remove = FALSE) %>%
+  mutate(room = str_trim(room),
+         room_id = str_extract(room, "[aA-zZ]+"), 
+         room_number = as.numeric(str_extract(room, "[0-9]+")),
+         names = as.character(names)) %>%
+  select(names, location, room_id, room_number) %>%
+  arrange(location, room_id, room_number) %>%
+  pull(names)
+
+
+knitr::kable(tryme_table %>% select(Time, order_rooms), align = "c")
+
+```

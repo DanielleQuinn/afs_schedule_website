@@ -1,0 +1,9 @@
+---
+title: " "
+---
+
+The code used to extract this information from the AFS-TWS conference website and to create these tables can be found [here](https://github.com/DanielleQuinn/afs_schedule), along with the raw HTML files created.
+
+This was a learn-to-webscrape project for me, and this schedule format is, admittedly, not particularly easy to navigate - if anyone is interested in contributing and is able to convert these tables to a shareable Google Sheet or is willing to spend the time converting this to a simple Shiny app, please feel free to submit a PR!
+
+Danielle

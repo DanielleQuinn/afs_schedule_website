@@ -1,0 +1,14 @@
+name: "afstws-schedule"
+navbar:
+  title: "AFS/TWS Schedule"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "September 30"
+      href: september30.html
+    - text: "October 1"
+      href: october1.html
+    - text: "October 2"
+      href: october2.html
+    - text: "October 3"
+      href: october3.html
